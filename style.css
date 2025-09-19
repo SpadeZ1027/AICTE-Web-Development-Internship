@@ -1,0 +1,218 @@
+/* GENERAL STYLES */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background 0.5s;
+  color: #fff;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+input {
+  padding: 8px;
+  font-size: 16px;
+}
+
+button {
+  padding: 8px 12px;
+  font-size: 16px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/* CURRENT WEATHER AND FORECAST CARDS */
+.current-weather {
+  margin: 20px 0;
+}
+
+.forecast-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 10px;
+  width: 100px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* WEATHER CARDS (HORIZONTAL SCROLL) */
+.weather-cards-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.weather-cards-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.weather-cards-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.weather-card {
+  flex: 0 0 auto; /* prevents shrinking */
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 15px;
+  min-width: 120px;
+  text-align: center;
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 2;
+}
+
+.weather-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.metric-value {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.metric-label {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.weather-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  opacity: 0.8;
+  margin: 0 auto;
+}
+
+.weather-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Sky container */
+#sky-container {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Height of sky area */
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(to top, #87ceeb, #fceabb); /* Default sky blue */
+}
+
+/* Sun & Moon */
+#sun-moon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  z-index: 10;
+  transition: left 1s linear, top 1s linear, background 1s linear, box-shadow 1s linear;
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.7);
+  background: yellow; /* sun color */
+}
+
+/* Moon specific */
+#sun-moon.moon {
+  background: #f0f0f0; 
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Background changes dynamically using JS */
+.sunny { background: linear-gradient(to top, #87ceeb, #fceabb); } /* sky-blue for day */
+.night { background: linear-gradient(to top, #0f2027, #2c5364); } /* deep blue for night */
+
+
+/* WEATHER BACKGROUND THEMES (optional fallback) */
+.sunny { background: linear-gradient(to top, #fceabb, #f8b500); }
+.cloudy { background: linear-gradient(to top, #bdc3c7, #2c3e50); }
+.rainy { background: linear-gradient(to top, #4e54c8, #8f94fb); }
+.snowy { background: linear-gradient(to top, #83a4d4, #b6fbff); }
+.night { background: linear-gradient(to top, #0f2027, #2c5364); }
+
+/* ANIMATIONS FOR SMALL ICONS (optional) */
+@keyframes sunRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.sun { animation: sunRotate 10s linear infinite; }
+
+@keyframes cloudMove { 0% { transform: translateX(-10px); } 50% { transform: translateX(10px); } 100% { transform: translateX(-10px); } }
+.cloud { animation: cloudMove 5s ease-in-out infinite; }
+
+@keyframes rainFall { 0% { top: -20px; opacity: 0; } 50% { opacity: 1; } 100% { top: 50px; opacity: 0; } }
+.rain { animation: rainFall 1.5s linear infinite; }
+
+@keyframes snowFall { 0% { top: -20px; opacity: 0; } 50% { opacity: 1; } 100% { top: 50px; opacity: 0; } }
+.snow { animation: snowFall 5s linear infinite; }
+
+/* WEATHER BACKGROUND LAYER */
+.weather-bg {
+  position: absolute; /* changed from fixed to absolute for container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* CLOUDS / RAIN / SNOW BACKGROUND */
+.cloud-bg {
+  position: absolute;
+  top: 10%;
+  width: 200px;
+  height: 100px;
+  background: url('icons/cloud.png') no-repeat;
+  background-size: contain;
+  opacity: 0.2;
+  animation: cloudMoveBG 60s linear infinite;
+}
+
+@keyframes cloudMoveBG { 0% { transform: translateX(-250px); } 100% { transform: translateX(110vw); } }
+
+.rain-bg {
+  position: absolute;
+  width: 2px;
+  height: 15px;
+  background: #a4c0e8;
+  opacity: 0.7;
+  animation: rainFallBG 1.5s linear infinite;
+}
+
+@keyframes rainFallBG { 0% { transform: translateY(-20px); } 100% { transform: translateY(100vh); } }
+
+.snow-bg {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: snowFallBG 6s linear infinite;
+}
+
+@keyframes snowFallBG { 0% { transform: translateY(-20px) rotate(0deg); } 100% { transform: translateY(100vh) rotate(360deg); } }
