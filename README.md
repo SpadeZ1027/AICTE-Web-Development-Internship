@@ -18,3 +18,7 @@ It displays current weather, hourly forecast, daily forecast, and a moving sun/m
 - `index.html` – Main HTML layout.  
 - `style.css` – Styling for the dashboard, forecasts, and sun/moon animation.  
 - `script.js` – Fetches weather data, updates forecasts, and animates sun/moon.
+
+## Deployment Link
+
+https://dynamic-weather-card.netlify.app/
