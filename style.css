@@ -95,8 +95,8 @@ button {
 }
 
 .metric-label {
-  font-size: 12px;
-  color: #ccc;
+  font-size: 16px;
+  color: #f4f00ee7;
 }
 
 .weather-icon {
@@ -115,38 +115,42 @@ button {
   transition: all 0.3s ease-in-out;
 }
 
-/* Sky container */
-#sky-container {
-  position: relative;
-  width: 100%;
-  height: 200px; /* Height of sky area */
-  overflow: hidden;
-  border-radius: 10px;
-  background: linear-gradient(to top, #87ceeb, #fceabb); /* Default sky blue */
+/* Backgrounds (fixed) */
+body.daytime {
+  background: rgb(79, 173, 210) !important;
 }
 
-/* Sun & Moon */
-#sun-moon {
+body.nighttime {
+  background: #0b1e3d !important; /* dark blue */
+}
+
+/* Sun */
+#sun {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  background: yellow;
   border-radius: 50%;
-  z-index: 10;
-  transition: left 1s linear, top 1s linear, background 1s linear, box-shadow 1s linear;
-  box-shadow: 0 0 20px rgba(255, 255, 0, 0.7);
-  background: yellow; /* sun color */
+  box-shadow: 0 0 30px rgba(255, 255, 0, 0.7);
+  transition: opacity 1s ease-in-out;
+  z-index: 3;
 }
 
-/* Moon specific */
-#sun-moon.moon {
-  background: #f0f0f0; 
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+/* Moon */
+#moon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+  transition: opacity 1s ease-in-out;
+  z-index: 3;
 }
-
-/* Background changes dynamically using JS */
-.sunny { background: linear-gradient(to top, #87ceeb, #fceabb); } /* sky-blue for day */
-.night { background: linear-gradient(to top, #0f2027, #2c5364); } /* deep blue for night */
-
 
 /* WEATHER BACKGROUND THEMES (optional fallback) */
 .sunny { background: linear-gradient(to top, #fceabb, #f8b500); }
